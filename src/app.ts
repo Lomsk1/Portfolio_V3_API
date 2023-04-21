@@ -6,6 +6,7 @@ import skillRouter from "./routes/skillsRoute";
 import webRoute from "./routes/webRoute";
 import expRoute from "./routes/expRoute";
 import categoryRoute from "./routes/categoryRoute";
+import projectRoute from "./routes/projectRoute";
 // import xss from "xss-clean";
 // import compression from "compression";
 
@@ -30,6 +31,7 @@ app.use("/api/v1/skills", skillRouter);
 app.use("/api/v1/web", webRoute);
 app.use("/api/v1/experience", expRoute);
 app.use("/api/v1/category", categoryRoute);
+app.use("/api/v1/project", projectRoute);
 
 // app.use(xss());
 
