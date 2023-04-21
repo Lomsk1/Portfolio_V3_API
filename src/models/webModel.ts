@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
-const webModel = new mongoose.Schema({
+interface IWeb {
+  name: string;
+}
+
+const webModel = new mongoose.Schema<IWeb>({
   name: {
     type: String,
     required: [true, "A web must have a name"],
