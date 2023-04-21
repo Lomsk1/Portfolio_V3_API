@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 interface ISkills {
   name: string;
@@ -24,6 +24,6 @@ const skillSchema = new mongoose.Schema<ISkills>({
   },
 });
 
-const Skills = mongoose.model("Skills", skillSchema);
+const Skills = mongoose.model<ISkills & Document>("Skills", skillSchema);
 
 export default Skills;

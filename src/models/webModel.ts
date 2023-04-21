@@ -1,16 +1,16 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 interface IWeb {
   name: string;
 }
 
-const webModel = new mongoose.Schema<IWeb>({
+const webSchema = new mongoose.Schema<IWeb>({
   name: {
     type: String,
     required: [true, "A web must have a name"],
   },
 });
 
-const Web = mongoose.model("Web", webModel);
+const Web = mongoose.model<IWeb & Document>("Web", webSchema);
 
 export default Web;

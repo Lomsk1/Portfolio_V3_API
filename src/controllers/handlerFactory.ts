@@ -1,13 +1,10 @@
 import AppError from "../utils/appErrors";
 import { catchAsync } from "../utils/catchAsync";
+import { Request, Response, NextFunction } from "express";
+import { Model, Document } from "mongoose";
 
-// interface ModelTypes {
-//   Model: any;
-//   findById: number;
-// }
-
-export const getAll = (Model: any) =>
-  catchAsync(async (req, res, next) => {
+export const getAll = (Model: Model<Document>) =>
+  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const doc = await Model.find(req.query);
 
     res.status(200).json({
@@ -19,8 +16,8 @@ export const getAll = (Model: any) =>
     });
   });
 
-export const createOne = (Model) =>
-  catchAsync(async (req, res, next) => {
+export const createOne = (Model: Model<Document>) =>
+  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const doc = await Model.create(req.body);
     res.status(201).json({
       status: "success",
@@ -30,8 +27,8 @@ export const createOne = (Model) =>
     });
   });
 
-export const updateOne = (Model) =>
-  catchAsync(async (req, res, next) => {
+export const updateOne = (Model: Model<Document>) =>
+  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
@@ -49,8 +46,8 @@ export const updateOne = (Model) =>
     });
   });
 
-export const deleteOne = (Model) =>
-  catchAsync(async (req, res, next) => {
+export const deleteOne = (Model: Model<Document>) =>
+  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const doc = await Model.findByIdAndDelete(req.params.id);
 
     if (!doc) {

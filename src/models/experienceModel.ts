@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
 interface IExp {
   title: string;
@@ -16,6 +16,9 @@ const experienceSchema = new mongoose.Schema<IExp>({
   },
 });
 
-const Experience = mongoose.model("Experience", experienceSchema);
+const Experience = mongoose.model<IExp & Document>(
+  "Experience",
+  experienceSchema
+);
 
 export default Experience;
