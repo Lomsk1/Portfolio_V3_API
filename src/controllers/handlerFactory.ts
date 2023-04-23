@@ -5,20 +5,26 @@ import { Model, Document } from "mongoose";
 
 export const getAll = (Model: Model<Document>) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const doc = await Model.find(req.query);
+    const data = await Model.find(req.query);
 
     res.status(200).json({
       status: "success",
-      results: doc.length,
-      data: {
-        doc,
-      },
+      results: data.length,
+      data,
     });
   });
 
 export const createOne = (Model: Model<Document>) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const doc = await Model.create(req.body);
+    let createdData = req.body;
+
+    if (req.file) {
+      createdData = {
+        ...createdData,
+        image: req.file.filename,
+      };
+    }
+    const doc = await Model.create(createdData);
     res.status(201).json({
       status: "success",
       data: {
@@ -29,7 +35,16 @@ export const createOne = (Model: Model<Document>) =>
 
 export const updateOne = (Model: Model<Document>) =>
   catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
+    let updatedData = req.body;
+
+    if (req.file) {
+      updatedData = {
+        ...updatedData,
+        image: req.file.filename,
+      };
+    }
+
+    const doc = await Model.findByIdAndUpdate(req.params.id, updatedData, {
       new: true,
       runValidators: true,
     });

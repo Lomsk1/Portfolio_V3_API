@@ -33,11 +33,13 @@ const projectSchema = new mongoose.Schema<IProject>({
   image: {
     type: String,
   },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
-    required: [true, "A skill must have a category"],
-  },
+  category: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: [true, "A skill must have a category"],
+    },
+  ],
 });
 
 const Project = mongoose.model<IProject & Document>("Project", projectSchema);
