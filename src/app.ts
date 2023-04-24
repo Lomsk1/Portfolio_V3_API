@@ -28,7 +28,11 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(express.json());
 
 app.use(mongoSanitize());
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
 
 // Routes
 app.use("/api/v1/skills", skillRouter);
