@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from "express";
 import { Model, Document } from "mongoose";
 
 export const getAll = (Model: Model<Document>) =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
     const data = await Model.find(req.query);
 
     res.status(200).json({
@@ -15,7 +15,7 @@ export const getAll = (Model: Model<Document>) =>
   });
 
 export const createOne = (Model: Model<Document>) =>
-  catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+  catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
     let createdData = req.body;
 
     if (req.file) {

@@ -5,13 +5,13 @@ import { createOne, deleteOne, getAll, updateOne } from "./handlerFactory";
 
 const storage = multer.diskStorage({
   destination: function (
-    req: Request,
-    file: Express.Multer.File,
+    _req: Request,
+    _file: Express.Multer.File,
     cb: Function
   ) {
     cb(null, "src/images/project");
   },
-  filename: function (req: Request, file: Express.Multer.File, cb: Function) {
+  filename: function (_req: Request, file: Express.Multer.File, cb: Function) {
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
