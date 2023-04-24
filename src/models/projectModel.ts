@@ -31,7 +31,9 @@ const projectSchema = new mongoose.Schema<IProject>({
     required: [true, "A project must have a link"],
   },
   image: {
-    type: String,
+    // type: String,
+    data: Buffer,
+    contentType: String,
   },
   category: [
     {

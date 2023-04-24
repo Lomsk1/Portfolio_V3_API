@@ -21,7 +21,10 @@ export const createOne = (Model: Model<Document>) =>
     if (req.file) {
       createdData = {
         ...createdData,
-        image: req.file.filename,
+        image: {
+          data: req.file.filename,
+          contentType: "image/png",
+        },
       };
     }
     const doc = await Model.create(createdData);
