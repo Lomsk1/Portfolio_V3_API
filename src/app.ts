@@ -17,7 +17,19 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://www.lomsk1.dev",
+      "https://portfoliov3api-production.up.railway.app/",
+    ],
+  })
+);
+// var corsOptions = {
+//   origin: "http://example.com",
+//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+// };
 app.options("*", cors());
 
 if (process.env.NODE_ENV === "development") {
