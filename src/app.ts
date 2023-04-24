@@ -11,7 +11,7 @@ import xss from "xss-clean";
 import compression from "compression";
 import cors from "cors";
 import path from "path";
-// import helmet from "helmet";
+import helmet from "helmet";
 
 dotenv.config();
 
@@ -29,12 +29,12 @@ app.use(express.json());
 
 app.use(mongoSanitize());
 // app.use(helmet());
-// app.use(
-//   helmet({
-//     crossOriginResourcePolicy: false,
-//   })
-// );
-// app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 // Routes
 app.use("/api/v1/skills", skillRouter);
