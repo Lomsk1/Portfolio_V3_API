@@ -21,27 +21,27 @@ export const getAll = (Model: Model<Document>) =>
 export const createOne = (Model: Model<Document>) =>
   catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
     let createdData = req.body;
-
     if (req.file) {
-      // const buffer = await readFile(req.file.path);
+      // const buffer = readFile(req.file.path);
 
       // const newImg = fs.readFileSync(req.file.path);
       // const encImg = newImg.toString("base64");
 
+      // console.log(encImg);
       // var newItem = {
       //   description: req.body.description,
       //   contentType: req.file.mimetype,
       //   size: req.file.size,
       //   img: Buffer(encImg, "base64"),
       // };
-      createdData = {
-        ...createdData,
-        image: {
-          data: req.file.filename,
-          contentType: req.file.mimetype,
-          name: req.file.filename,
-        },
-      };
+      // createdData = {
+      //   ...createdData,
+      //   image: {
+      //     data: req.file.filename,
+      //     contentType: req.file.mimetype,
+      //     name: req.file.filename,
+      //   },
+      // };
 
       // createdData = {
       //   ...createdData,
@@ -50,6 +50,15 @@ export const createOne = (Model: Model<Document>) =>
       //     contentType: req.file.mimetype,
       //   },
       // };
+
+      createdData = {
+        ...createdData,
+        image: {
+          data: req.file.filename,
+          contentType: req.body.image,
+          name: req.file.filename,
+        },
+      };
     }
     const doc = await Model.create(createdData);
 

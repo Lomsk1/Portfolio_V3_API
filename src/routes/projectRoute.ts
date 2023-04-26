@@ -3,6 +3,7 @@ import {
   createProject,
   deleteProject,
   getAllProject,
+  resizeProjectImage,
   updateProject,
   uploadProjectImage,
 } from "../controllers/projectController";
@@ -14,7 +15,7 @@ const projectRoute = express.Router({
 projectRoute
   .route("/")
   .get(getAllProject)
-  .post(uploadProjectImage, createProject);
+  .post(uploadProjectImage, resizeProjectImage, createProject);
 projectRoute
   .route("/:id")
   .patch(uploadProjectImage, updateProject)
