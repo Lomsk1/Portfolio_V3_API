@@ -55,7 +55,7 @@ export const createOne = (Model: Model<Document>) =>
         ...createdData,
         image: {
           data: req.file.filename,
-          contentType: req.body.image,
+          contentType: req.file.destination,
           name: req.file.filename,
         },
       };
