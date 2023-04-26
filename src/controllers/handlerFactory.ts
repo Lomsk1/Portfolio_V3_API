@@ -2,6 +2,10 @@ import AppError from "../utils/appErrors";
 import { catchAsync } from "../utils/catchAsync";
 import { Request, Response, NextFunction } from "express";
 import { Model, Document } from "mongoose";
+import fs from "fs";
+import { promisify } from "util";
+
+const readFile = promisify(fs.readFile);
 
 export const getAll = (Model: Model<Document>) =>
   catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
@@ -19,15 +23,41 @@ export const createOne = (Model: Model<Document>) =>
     let createdData = req.body;
 
     if (req.file) {
+      // const buffer = await readFile(req.file.path);
+
+      // const newImg = fs.readFileSync(req.file.path);
+      // const encImg = newImg.toString("base64");
+
+      // var newItem = {
+      //   description: req.body.description,
+      //   contentType: req.file.mimetype,
+      //   size: req.file.size,
+      //   img: Buffer(encImg, "base64"),
+      // };
       createdData = {
         ...createdData,
         image: {
           data: req.file.filename,
-          contentType: "image/png",
+          contentType: req.file.mimetype,
+          name: req.file.filename,
         },
       };
+
+      // createdData = {
+      //   ...createdData,
+      //   image: {
+      //     data: buffer,
+      //     contentType: req.file.mimetype,
+      //   },
+      // };
     }
     const doc = await Model.create(createdData);
+
+    // if (req.file) {
+    //   // Remove the temporary file after it's been read
+    //   await promisify(fs.unlink)(req.file.path);
+    // }
+
     res.status(201).json({
       status: "success",
       data: {
@@ -41,9 +71,13 @@ export const updateOne = (Model: Model<Document>) =>
     let updatedData = req.body;
 
     if (req.file) {
+      const buffer = await readFile(req.file.path);
       updatedData = {
         ...updatedData,
-        image: req.file.filename,
+        image: {
+          data: buffer,
+          contentType: req.file.mimetype,
+        },
       };
     }
 
@@ -51,6 +85,10 @@ export const updateOne = (Model: Model<Document>) =>
       new: true,
       runValidators: true,
     });
+
+    if (req.file) {
+      await promisify(fs.unlink)(req.file.path);
+    }
 
     if (!doc) {
       return next(new AppError("No document found with that ID", 404));

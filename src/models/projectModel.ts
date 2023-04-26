@@ -34,6 +34,10 @@ const projectSchema = new mongoose.Schema<IProject>({
     // type: String,
     data: Buffer,
     contentType: String,
+
+    name: String,
+    // data: Buffer,
+    // contentType: String,
   },
   category: [
     {
