@@ -22,7 +22,7 @@ export const createOne = (Model: Model<Document>) =>
   catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
     let createdData = req.body;
     if (req.file) {
-      // const buffer = readFile(req.file.path);
+      const buffer = readFile(req.file.path);
 
       // const newImg = fs.readFileSync(req.file.path);
       // const encImg = newImg.toString("base64");
@@ -60,19 +60,19 @@ export const createOne = (Model: Model<Document>) =>
         },
       };
     }
-    const doc = await Model.create(createdData);
+    // const doc = await Model.create(createdData);
 
     // if (req.file) {
     //   // Remove the temporary file after it's been read
     //   await promisify(fs.unlink)(req.file.path);
     // }
 
-    res.status(201).json({
-      status: "success",
-      data: {
-        doc,
-      },
-    });
+    // res.status(201).json({
+    //   status: "success",
+    //   data: {
+    //     doc,
+    //   },
+    // });
   });
 
 export const updateOne = (Model: Model<Document>) =>

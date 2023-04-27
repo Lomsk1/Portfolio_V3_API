@@ -12,6 +12,7 @@ import compression from "compression";
 import cors from "cors";
 import path from "path";
 import helmet from "helmet";
+import emailRoute from "./routes/emaiRoute";
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ app.use("/api/v1/web", webRoute);
 app.use("/api/v1/experience", expRoute);
 app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/project", projectRoute);
+app.use("/api/v1/email", emailRoute);
 
 app.use(xss());
 
