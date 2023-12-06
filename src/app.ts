@@ -22,7 +22,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://www.lomsk1.dev",
+      "https://www.lomski.pro",
       "https://portfoliov3api-production.up.railway.app/",
     ],
   })
